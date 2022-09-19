@@ -1,0 +1,5 @@
+templateFile="./Templates/rg-vnet.json"
+az deployment group create \
+-n blanktemplate \
+-g rg-cert-dev-westus2 \
+--template-file $templateFile
