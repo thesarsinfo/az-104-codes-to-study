@@ -28,13 +28,22 @@ module storage  'storage.bicep' = {
     
   }
 }
-module serverFarm 'appservice.bicep' = {
+module serverFarm  'serverFarm.bicep' = {
   name: 'serverFarmDeployment'
   scope: rgname
   params: {
-    serverFarmPlan: appServiceAppName
-    appServiceName: appServicePlanName
+    serverFarmPlan: appServicePlanName   
     location: location    
     enviromentType:enviromentType
+  }
+}
+var appPlan = serverFarm.outputs.serverFarmId
+module appService  'appservice.bicep' = {
+  name: 'AppServiceDeployment'
+  scope: rgname
+  params: {
+    appServiceName: appServiceAppName
+    location: location    
+    plan: appPlan
   }
 }
